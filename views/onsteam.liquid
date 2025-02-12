@@ -1,0 +1,8 @@
+<h1>HOBBY</h1>
+
+<h2>Ons Team</h2>
+<ul>
+  {% for person in persons %}
+    <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
+  {% endfor %}
+</ul>
