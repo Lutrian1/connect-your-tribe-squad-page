@@ -95,7 +95,7 @@ app.get('/onsteam', async function (request, response) {
 //Route naar Hobby pagina
 app.get('/hobby/:id', async function (request, response) {
   // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
-  const personFilterMuziek = await fetch('https://fdnd.directus.app/items/person/?filter={"hobby":"Muziek"}')
+  const personFilterMuziek = await fetch('https://fdnd.directus.app/items/person/?filter={"fav_hobby":"id"}')
   // En haal daarvan de JSON op
   const personFilterMuziekJSON = await personFilterMuziek.json()
   

@@ -1,8 +1,10 @@
-<h1>HOBBY</h1>
+{% render 'partials/head.liquid', title: 'OnsTeam' %}
+<h1>Ons Team</h1>
 
-<h2>Ons Team</h2>
 <ul>
   {% for person in persons %}
     <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
   {% endfor %}
 </ul>
+
+{% render 'partials/foot.liquid', squads: squads %}

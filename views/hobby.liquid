@@ -1,3 +1,11 @@
-<h1>HOBBY</h1>
+{% render 'partials/head.liquid', title: 'Hobby' %}
 
-{{hobby.}}
+<h1>Hobby</h1>
+
+<h2>Iedereen met de hobby: {{hobby.}}</h2>
+
+<ul>
+  {% for person in persons %}
+    <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
+  {% endfor %}
+</ul>
