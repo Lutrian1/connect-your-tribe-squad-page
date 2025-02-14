@@ -2,10 +2,15 @@
 
 <h1>Hobby</h1>
 
-<h2>Iedereen met de hobby: {{hobby.}}</h2>
+<h2>Iedereen met de hobby: {{ hobby }}</h2>
 
 <ul>
   {% for person in persons %}
     <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
+  {% else %}
+    <li>Geen personen gevonden met deze hobby.</li>
   {% endfor %}
 </ul>
+
+
+{% render 'partials/footer.liquid'%}

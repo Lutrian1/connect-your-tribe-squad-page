@@ -82,29 +82,28 @@ app.get('/student/:id', async function (request, response) {
 
 //Route naar Ons team pagina
 app.get('/onsteam', async function (request, response) {
-  // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
+
   const personTeam = await fetch('https://fdnd.directus.app/items/person/?filter={"team":"Rad"}')
-  // En haal daarvan de JSON op
+
   const personTeamJSON = await personTeam.json()
   
-  // Render student.liquid uit de views map en geef de opgehaalde data mee als variable, genaamd person
-  // Geef ook de eerder opgehaalde squad data mee aan de view
   response.render('onsteam.liquid', {persons: personTeamJSON.data, squads: squadResponseJSON.data})
 })
 
 //Route naar Hobby pagina
 app.get('/hobby/:id', async function (request, response) {
-  // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
-  const personFilterMuziek = await fetch('https://fdnd.directus.app/items/person/?filter={"fav_hobby":"id"}')
-  // En haal daarvan de JSON op
-  const personFilterMuziekJSON = await personFilterMuziek.json()
-  
-  // Render student.liquid uit de views map en geef de opgehaalde data mee als variable, genaamd person
-  // Geef ook de eerder opgehaalde squad data mee aan de view
-  response.render('hobby.liquid', {hobby: request.params.id, personFilterMuziek: personFilterMuziekJSON.data})
-})
+  const hobby = request.params.id; // Pak de hobby van de URL
 
+  // Geef hoofdletter mee aan elke hobby (geen idee hoe dit werkte, De data lukte maar niet omdat hij het met lage letter pakte, Ik heb chatgpt gevraagd voor een fix)
+  const capitalizedHobby = hobby.charAt(0).toUpperCase() + hobby.slice(1).toLowerCase();
 
+  // Pak data voor geselecteerde hobby
+  const hobbyUrl = `https://fdnd.directus.app/items/person/?filter={"fav_hobby":"${capitalizedHobby}"}`;
+  const hobbyApiResponse = await fetch(hobbyUrl);
+  const personData = await hobbyApiResponse.json();
+
+  response.render('hobby.liquid', {hobby: capitalizedHobby, persons: personData.data}); // geef alle data mee aan de liquid html
+}); 
 
 // Stel het poortnummer in waar express op moet gaan luisteren
 app.set('port', process.env.PORT || 8000)
