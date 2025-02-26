@@ -1,0 +1,16 @@
+{% render 'partials/head.liquid', title: 'Messages' %}
+
+{% for message in messages %} 
+
+ <p> {{message}} </p>
+
+{% endfor %}
+ 
+<form method="post" action="/berichten">
+    <label> Typ berichten
+        <input type="text" name="tekstje">
+    </label>
+    <button type="submit">Voeg toe</button>
+</form>
+
+{% render 'partials/footer.liquid'%}
